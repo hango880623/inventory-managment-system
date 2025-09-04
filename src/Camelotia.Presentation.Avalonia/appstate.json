@@ -2,10 +2,34 @@
   "$type": "Camelotia.Presentation.AppState.MainState, Camelotia.Presentation",
   "cloudStates": {
     "$type": "<>z__ReadOnlyArray`1[[Camelotia.Presentation.AppState.CloudState, Camelotia.Presentation]], Camelotia.Presentation",
-    "$values": []
+    "$values": [
+      {
+        "$type": "Camelotia.Presentation.AppState.CloudState, Camelotia.Presentation",
+        "createFolderState": {
+          "$type": "Camelotia.Presentation.AppState.CreateFolderState, Camelotia.Presentation",
+          "isVisible": false
+        },
+        "renameFileState": {
+          "$type": "Camelotia.Presentation.AppState.RenameFileState, Camelotia.Presentation"
+        },
+        "authState": {
+          "$type": "Camelotia.Presentation.AppState.AuthState, Camelotia.Presentation",
+          "directAuthState": {
+            "$type": "Camelotia.Presentation.AppState.DirectAuthState, Camelotia.Presentation"
+          },
+          "hostAuthState": {
+            "$type": "Camelotia.Presentation.AppState.HostAuthState, Camelotia.Presentation"
+          }
+        },
+        "currentPath": "/System",
+        "id": "6457b413-971f-4f13-8d07-e08ee241a41e",
+        "created": "2025-09-04T16:06:40.949607-07:00",
+        "type": 3
+      }
+    ]
   },
   "selectedSupportedType": 3,
-  "selectedProviderId": "00000000-0000-0000-0000-000000000000",
+  "selectedProviderId": "6457b413-971f-4f13-8d07-e08ee241a41e",
   "cloudConfiguration": {
     "$type": "Camelotia.Services.Configuration.CloudConfiguration, Camelotia.Services",
     "gitHub": {

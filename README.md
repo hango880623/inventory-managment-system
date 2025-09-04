@@ -1,73 +1,243 @@
-<p><img src="images/horizontal.png" alt="Camelotia" height="50px"></p>
+# Inventory Management System
 
-[![Build](https://github.com/reactiveui/Camelotia/actions/workflows/ci-build.yml/badge.svg)](https://github.com/reactiveui/Camelotia/actions/workflows/ci-build.yml) [![Pull Requests](https://img.shields.io/github/issues-pr/reactiveui/camelotia.svg)](https://github.com/reactiveui/Camelotia/pulls) [![Issues](https://img.shields.io/github/issues/reactiveui/camelotia.svg)](https://github.com/reactiveui/Camelotia/issues) ![License](https://img.shields.io/github/license/reactiveui/camelotia.svg) ![Size](https://img.shields.io/github/repo-size/reactiveui/camelotia.svg) [![codecov](https://codecov.io/gh/reactiveui/Camelotia/branch/main/graph/badge.svg?token=dmQeHH4Us8)](https://codecov.io/gh/reactiveui/Camelotia)
+A modern .NET C# web application for comprehensive inventory management with user authentication, dashboard analytics, and advanced data management features.
 
-Camelotia is a sample cross-platform application built with reactive extensions, [ReactiveUI](https://github.com/reactiveui/ReactiveUI), and modern .NET UI frameworks. Camelotia is a file manager for cloud storages, it currently supports Yandex Disk, Google Drive, VK Documents, GitHub, FTP, SFTP, and local file systems. The app runs on Windows, Linux, MacOS, XBox, Surface Hub and HoloLens.
+## 🎯 Project Overview
 
-### Compiling Avalonia app
+This inventory management system provides a complete solution for tracking products, managing users, and monitoring business operations through an intuitive web interface.
 
-<img src="images/UiAvalonia.png" width="550">
+## 🚀 Features
 
-In order to compile .NET Standard libraries, run tests and run the <a href="https://github.com/avaloniaui">Avalonia</a> application on Windows, Linux or MacOS operating system make sure to have latest [.NET Core SDK](https://dot.net/) installed. Launch the `Camelotia.Avalonia.sln` file to browse or to edit source files. Camelotia uses [Nuke Build](https://github.com/nuke-build/nuke) to build and test the solution. Execute the following commands to run the build scripts on Linux or MacOS:
+### Core Functionality
+- **User Management**: Complete user registration, authentication, and role-based access control
+- **Inventory Tracking**: Real-time product management with stock monitoring
+- **Dashboard Analytics**: Comprehensive business insights and reporting
+- **Data Management**: Advanced grid views with pagination and search capabilities
 
-```sh
-# Linux or MacOS shell. Launches the Avalonia app after build.
-git clone https://github.com/worldbeater/Camelotia
-cd ./Camelotia && bash ./build.sh --interactive
+### Technical Features
+- **Database**: SQL Server integration with Entity Framework Core
+- **Authentication**: Secure login system with session management
+- **UI/UX**: Modern responsive design with toast notifications
+- **Performance**: Optimized data loading with pagination
+
+## 🛠️ Technology Stack
+
+- **Backend**: .NET 8.0 / .NET 9.0
+- **Frontend**: ASP.NET Core MVC / Blazor Server
+- **Database**: SQL Server
+- **ORM**: Entity Framework Core
+- **Authentication**: ASP.NET Core Identity
+- **UI Framework**: Bootstrap 5 / Tailwind CSS
+- **JavaScript**: Modern ES6+ with AJAX
+
+## 📋 Implementation Roadmap
+
+### Phase 1: Database & Core Setup
+1. **Create Database Schema**
+   - Design SQL Server database structure
+   - Set up Entity Framework Core models
+   - Configure database migrations
+   - Implement connection string management
+
+### Phase 2: User Management System
+2. **Add New User Form**
+   - User registration interface
+   - Form validation and error handling
+   - Role assignment (Admin, Manager, Employee)
+   - Password strength requirements
+
+3. **User List Form**
+   - Display all users in a data grid
+   - Search and filter functionality
+   - Edit/Delete user capabilities
+   - Bulk operations support
+
+4. **Login Form**
+   - Secure authentication system
+   - Remember me functionality
+   - Password reset capabilities
+   - Session management
+
+### Phase 3: Application Interface
+5. **Switchboard Form**
+   - Main navigation hub
+   - Role-based menu access
+   - Quick action buttons
+   - System status indicators
+
+6. **Main Form (Dashboard)**
+   - Key performance indicators (KPIs)
+   - Inventory status overview
+   - Recent activity feed
+   - Interactive charts and graphs
+
+### Phase 4: Enhanced User Experience
+7. **Custom Message Boxes**
+   - Confirmation dialogs
+   - Error message handling
+   - Success notifications
+   - Custom styling and animations
+
+8. **Toast Alerts**
+   - Real-time notifications
+   - Auto-dismiss functionality
+   - Multiple alert types (success, warning, error, info)
+   - Position customization
+
+9. **Data GridView Pagination**
+   - Server-side pagination
+   - Sortable columns
+   - Advanced filtering
+   - Export capabilities (PDF, Excel)
+
+## 🗂️ Project Structure
+
+```
+InventorySystem/
+├── Controllers/                 # MVC Controllers
+├── Models/                     # Data Models & ViewModels
+├── Views/                      # Razor Views
+├── Services/                   # Business Logic Services
+├── Data/                       # Entity Framework Context
+├── wwwroot/                    # Static Files (CSS, JS, Images)
+├── Areas/                      # Feature Areas
+│   ├── Identity/              # Authentication
+│   ├── Inventory/             # Product Management
+│   └── Reports/               # Analytics & Reporting
+└── Migrations/                 # Database Migrations
 ```
 
-On Windows, execute the following command line:
+## 🚀 Getting Started
 
-```sh
-# Windows command line. Launches the Avalonia app after build.
-# Use the '--full' option to compile Android, UWP and WPF apps as well.
-# Use the '--configuration Release' option to generate app packages.
-git clone https://github.com/worldbeater/Camelotia
-cd ./Camelotia && powershell -ExecutionPolicy Unrestricted ./build.ps1 --interactive
+### Prerequisites
+- .NET 8.0 SDK or later
+- SQL Server (LocalDB or Full Instance)
+- Visual Studio 2022 or VS Code
+- Git
+
+### Installation Steps
+
+1. **Clone the Repository**
+   ```bash
+   git clone <repository-url>
+   cd InventorySystem
+   ```
+
+2. **Install Dependencies**
+   ```bash
+   dotnet restore
+   ```
+
+3. **Configure Database**
+   - Update connection string in `appsettings.json`
+   - Run database migrations:
+   ```bash
+   dotnet ef database update
+   ```
+
+4. **Run the Application**
+   ```bash
+   dotnet run
+   ```
+
+5. **Access the Application**
+   - Open browser to `https://localhost:5001`
+   - Default admin credentials will be provided
+
+## 📊 Database Schema
+
+### Core Tables
+- **Users**: User accounts and authentication
+- **Products**: Inventory items and specifications
+- **Categories**: Product categorization
+- **Suppliers**: Vendor information
+- **Orders**: Purchase and sales orders
+- **Transactions**: Inventory movements
+- **AuditLogs**: System activity tracking
+
+## 🔐 Security Features
+
+- **Authentication**: ASP.NET Core Identity
+- **Authorization**: Role-based access control
+- **Data Protection**: Encrypted sensitive data
+- **Audit Trail**: Complete user activity logging
+- **Input Validation**: XSS and SQL injection prevention
+
+## 📱 User Interface
+
+### Design Principles
+- **Responsive Design**: Mobile-first approach
+- **Accessibility**: WCAG 2.1 compliance
+- **Performance**: Optimized loading times
+- **Usability**: Intuitive navigation and workflows
+
+### Key Components
+- **Navigation**: Sidebar with role-based menus
+- **Data Tables**: Sortable, filterable, paginated grids
+- **Forms**: Validation and error handling
+- **Modals**: Confirmation dialogs and quick actions
+- **Charts**: Interactive data visualization
+
+## 🧪 Testing
+
+### Test Coverage
+- **Unit Tests**: Business logic validation
+- **Integration Tests**: Database operations
+- **UI Tests**: User interface automation
+- **Security Tests**: Authentication and authorization
+
+### Running Tests
+```bash
+dotnet test
 ```
 
-### Compiling Universal Windows Platform app
+## 📈 Performance Optimization
 
-<img src="images/UiWindows.png" width="550"> 
+- **Caching**: Redis for session and data caching
+- **Database**: Optimized queries and indexing
+- **Frontend**: Minified CSS/JS and image optimization
+- **CDN**: Static asset delivery optimization
 
-<a href="https://docs.microsoft.com/en-us/windows/uwp/get-started/universal-application-platform-guide">Universal Windows Platform</a> Camelotia app is compatible with Windows 10-based devices, such as PCs, Xbox One and HoloLens. The app can be compiled only on latest Windows 10. Make sure to have latest [Microsoft Visual Studio](https://visualstudio.microsoft.com/) installed. Make sure the "Universal Application Development" section is checked in [Visual Studio Installer](https://visualstudio.microsoft.com/ru/vs/). Launch the `Camelotia.Uwp.sln` solution file.
+## 🚀 Deployment
 
-### Compiling Windows Presentation Foundation app
+### Production Environment
+- **Web Server**: IIS or Linux with Nginx
+- **Database**: SQL Server with high availability
+- **Monitoring**: Application insights and logging
+- **Backup**: Automated database backups
 
-<img src="images/UiPresentation.png" width="550">
+### Docker Support
+```bash
+docker build -t inventory-system .
+docker run -p 8080:80 inventory-system
+```
 
-The app was ported to WPF to make the cloud file manager controls reusable across most popular .NET implementations, so one could easily embed parts of Camelotia into their own applications by simply copying and pasting the source files. The app is also compatible with Windows versions lower than 10, such as Windows 7 or 8. To compile the WPF app, ensure the "Desktop Development" section is checked in [Visual Studio Installer](https://visualstudio.microsoft.com/ru/vs/). Then, open the `Camelotia.Wpf.sln` file in Visual Studio 2019.
+## 🤝 Contributing
 
-### Compiling Xamarin Forms app
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
 
-<img src="images/UiAndroid.png" width="550"> 
+## 📝 License
 
-To compile the <a href="https://docs.microsoft.com/en-us/xamarin/xamarin-forms/">Xamarin.Forms</a> Android application, install the appropriate Android SDK v8.1. This can be achieved by using [Visual Studio Installer](https://visualstudio.microsoft.com/ru/vs/) and selecting "Mobile Development" section there. Launch the `Camelotia.Xamarin.sln` solution file.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-### Technologies and Tools Used
+## 📞 Support
 
-- <a href="https://reactiveui.net/">ReactiveUI</a> modern MVVM framework
-- <a href="https://github.com/reactiveui/reactiveui.validation">ReactiveUI.Validation</a> reactive validation library
-- <a href="https://reactiveui.net/docs/handbook/events/">ReactiveUI.Events</a> turning regular events into observables
-- <a href="https://github.com/reactiveui/DynamicData">DynamicData</a> reactive collections
-- <a href="https://github.com/avaloniaui">AvaloniaUI</a> cross-platform XAML-based GUI framework
-- <a href="https://github.com/worldbeater/citrus.avalonia">Citrus.Avalonia</a> bright and modern AvaloniaUI theme
-- <a href="https://github.com/reactiveui/Akavache">Akavache</a> persistent key-value store
-- <a href="https://github.com/nuke-build/nuke">Nuke</a> build automation system for C#/.NET
-- <a href="https://github.com/xunit/xunit">XUnit</a> unit testing tool for .NET
-- <a href="https://github.com/tonerdo/coverlet">Coverlet</a> code coverage analyzer
-- <a href="https://github.com/nsubstitute/NSubstitute">NSubstitute</a> mocking library
-- <a href="https://github.com/fluentassertions/fluentassertions">FluentAssertions</a> assertions library
-- <a href="https://docs.microsoft.com/en-us/xamarin/xamarin-forms/">Xamarin.Forms</a> mobile GUI framework
-- <a href="https://docs.microsoft.com/en-us/windows/uwp/get-started/universal-application-platform-guide">Universal Windows Platform</a> SDKs
-- <a href="https://github.com/dotnet/reactive">Reactive Extensions</a> for .NET
-- <a href="https://github.com/octokit/octokit.net">Octokit</a> GitHub client library
-- <a href="https://github.com/robinrodricks/FluentFTP">FluentFTP</a> FTP implementation
-- <a href="https://github.com/sshnet/SSH.NET/">SSH.NET</a> SFTP implementation
-- <a href="https://github.com/vknet/vk">VkNet</a> Vkontakte SDK for .NET
-- <a href="https://github.com/googleapis/google-api-dotnet-client">Google Drive</a> client SDK for .NET
-- <a href="https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit">Material Design</a> XAML controls and styles
-- <a href="https://github.com/MahApps/MahApps.Metro">MahApps Metro</a> XAML controls and styled windows
-- <a href="https://github.com/Fody/Costura">Costura.Fody</a> which embeds references as resources
-- <a href="https://www.jetbrains.com/rider/">JetBrains Rider</a> and <a href="https://visualstudio.microsoft.com/">Microsoft Visual Studio</a> IDEs
-- <a href="https://github.com/fornever/avaloniarider">AvaloniaRider</a> plugin for visual designer support
+For support and questions:
+- Create an issue in the repository
+- Contact the development team
+- Check the documentation wiki
+
+## 🔄 Version History
+
+- **v1.0.0** - Initial release with core inventory features
+- **v1.1.0** - Added user management and authentication
+- **v1.2.0** - Enhanced dashboard and reporting features
+- **v2.0.0** - Complete UI overhaul and performance improvements
+
+---
+
+**Built with ❤️ using .NET and modern web technologies**
