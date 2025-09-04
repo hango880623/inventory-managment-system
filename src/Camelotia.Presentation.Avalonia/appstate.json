@@ -1,0 +1,33 @@
+{
+  "$type": "Camelotia.Presentation.AppState.MainState, Camelotia.Presentation",
+  "cloudStates": {
+    "$type": "<>z__ReadOnlyArray`1[[Camelotia.Presentation.AppState.CloudState, Camelotia.Presentation]], Camelotia.Presentation",
+    "$values": []
+  },
+  "selectedSupportedType": 3,
+  "selectedProviderId": "00000000-0000-0000-0000-000000000000",
+  "cloudConfiguration": {
+    "$type": "Camelotia.Services.Configuration.CloudConfiguration, Camelotia.Services",
+    "gitHub": {
+      "$type": "Camelotia.Services.Configuration.GitHubCloudOptions, Camelotia.Services",
+      "githubApplicationId": "my-cool-app"
+    },
+    "googleDrive": {
+      "$type": "Camelotia.Services.Configuration.GoogleDriveCloudOptions, Camelotia.Services",
+      "googleDriveApplicationName": "Camelotia",
+      "googleDriveClientId": "1096201018044-qbv35mo5cd7b5utfjpg83v5lsuhssvvg.apps.googleusercontent.com",
+      "googleDriveClientSecret": "L-xoeULle07kb_jHleqMxWo2",
+      "googleDriveUserName": "user"
+    },
+    "vkDocs": {
+      "$type": "Camelotia.Services.Configuration.VkDocsCloudOptions, Camelotia.Services",
+      "applicationId": 5560698
+    },
+    "yandexDisk": {
+      "$type": "Camelotia.Services.Configuration.YandexDiskCloudOptions, Camelotia.Services",
+      "hashAuthClientId": "7762e3fccbe3431db2652a8434618790",
+      "codeAuthClientSecret": "317a14f5491447e8bd3a9e7e14ce46cd",
+      "codeAuthClientId": "122661520b174cb5b85b4a3c26aa66f6"
+    }
+  }
+}

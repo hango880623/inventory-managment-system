@@ -23,7 +23,7 @@ public sealed partial class AuthView : ReactiveUserControl<IAuthViewModel>
         });
     }
 
-    private static IControl ResolveControl(IAuthViewModel context)
+    private static Control ResolveControl(IAuthViewModel context)
     {
         if (context.SupportsDirectAuth)
             return new DirectAuthView { DataContext = context.DirectAuth };

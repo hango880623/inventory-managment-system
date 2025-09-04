@@ -44,7 +44,7 @@
                         Command="{Binding Back}"
                         ToolTip.Tip="Back"
                         Classes="Primary">
-                <DrawingPresenter Height="16" Drawing="{DynamicResource ArrowUp}"/>
+                <PathIcon Height="16" Data="{DynamicResource ArrowUp}"/>
               </Button>
                 <TextBlock Grid.Column="1"
                            IsVisible="{Binding HideBreadCrumbs}"
@@ -54,14 +54,14 @@
                            Margin="15 0" />
                 <ListBox Grid.Column="1"
                          IsVisible="{Binding ShowBreadCrumbs}"
-                         Items="{Binding BreadCrumbs}"
-                         Classes="BreadCrumb"/>          
+                         ItemsSource="{Binding BreadCrumbs}"
+                         Classes="BreadCrumb" />          
                 <Button Grid.Column="2"
                         Command="{Binding Open}"
                         HorizontalAlignment="Stretch"
                         ToolTip.Tip="Open"
                         Classes="Primary">
-                  <DrawingPresenter Height="16" Drawing="{DynamicResource ArrowDown}"/>
+                  <PathIcon Height="16" Data="{DynamicResource ArrowDown}"/>
                 </Button>
             </Grid>
             <Border Grid.Row="1" 
@@ -72,8 +72,8 @@
                              Background="{DynamicResource ThemeCardBrush}"
                              BorderThickness="0"
                              SelectionMode="Toggle"
-                             Items="{Binding Files}"
                              IsVisible="{Binding IsReady}"
+                             ItemsSource="{Binding Files}"
                              ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                              SelectedItem="{Binding SelectedFile, Mode=TwoWay}">
                         <ListBox.ItemTemplate>

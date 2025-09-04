@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.Platform.Storage;
 using Camelotia.Services.Interfaces;
 
 namespace Camelotia.Presentation.Avalonia.Services;
@@ -11,24 +12,35 @@ public sealed class AvaloniaFileManager : IFileManager
 
     public async Task<Stream> OpenWrite(string name)
     {
-        var fileDialog = new OpenFolderDialog();
-        var folder = await fileDialog.ShowAsync(_window).ConfigureAwait(false);
-        var path = Path.Combine(folder, name);
-        return File.Create(path);
+        // Use Window.StorageProvider for Avalonia 11
+        var result = await _window.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
+        {
+            Title = "Select folder"
+        });
+
+        var folder = result.FirstOrDefault();
+        if (folder is null)
+            throw new OperationCanceledException("No folder selected.");
+
+        // Create a new file inside the selected folder
+        var file = await folder.CreateFileAsync(name);
+        return await file.OpenWriteAsync();
     }
 
     public async Task<(string Name, Stream Stream)> OpenRead()
     {
-        var fileDialog = new OpenFileDialog { AllowMultiple = false };
-        var files = await fileDialog.ShowAsync(_window).ConfigureAwait(false);
-        var path = files[0];
+        var result = await _window.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+        {
+            Title = "Select file",
+            AllowMultiple = false
+        });
 
-        var attributes = File.GetAttributes(path);
-        var isFolder = attributes.HasFlag(FileAttributes.Directory);
-        if (isFolder) throw new Exception("Folders are not supported.");
+        var file = result.FirstOrDefault();
+        if (file is null)
+            throw new OperationCanceledException("No file selected.");
 
-        var stream = File.OpenRead(path);
-        var name = Path.GetFileName(path);
+        var name = file.Name;
+        var stream = await file.OpenReadAsync();
         return (name, stream);
     }
 }
