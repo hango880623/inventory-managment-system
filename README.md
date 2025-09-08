@@ -1,6 +1,28 @@
 # Inventory Management System
 
-A comprehensive .NET 8 web application for managing inventory, users, customers, suppliers, and orders.
+A modern .NET 8 web application for managing inventory, users, customers, suppliers, and orders.
+
+## Screenshots
+
+### 📊 Dashboard
+![Dashboard Screenshot](docs/images/screenshot-dashboard.png)  
+Clean dashboard view showing key statistics, navigation shortcuts, and recent activity.
+
+### 📦 Product Management
+![Product Screenshot](docs/images/screenshot-product.png)  
+Product list with pagination, image thumbnails, and CRUD controls.
+
+### 👤 User Management
+![New User Screenshot](docs/images/screenshot-newuser.png)  
+User creation form with role assignment, validation, and secure password handling.
+
+### 🏭 Supplier Management
+![Supplier Screenshot](docs/images/screenshot-supplier.png)  
+Supplier list with quick access to details, pagination, and management actions.
+
+### 🗄️ Database Setup
+![DB Screenshot](docs/images/screenshot-db.png)  
+SQL Server schema and role seeding configuration for first-time setup.
 
 ## Features
 
