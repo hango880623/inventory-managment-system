@@ -20,9 +20,13 @@ User creation form with role assignment, validation, and secure password handlin
 ![Supplier Screenshot](docs/images/screenshot-supplier.png)  
 Supplier list with quick access to details, pagination, and management actions.
 
+### 🗄️ Database Schema
+![DB Schema](docs/images/schema-database.png)  
+SQL Server schema and role seeding configuration for first-time setup.
+
 ### 🗄️ Database Setup
 ![DB Screenshot](docs/images/screenshot-db.png)  
-SQL Server schema and role seeding configuration for first-time setup.
+Azure SQL setup.
 
 ## Features
 
