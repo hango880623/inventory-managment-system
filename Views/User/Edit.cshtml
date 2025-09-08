@@ -1,0 +1,176 @@
+@model UserEditViewModel
+@{
+    ViewData["Title"] = "Edit User";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2><i class="fas fa-user-edit me-2"></i>Edit User</h2>
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="fas fa-arrow-left me-1"></i>Back to List
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">User Information</h6>
+            </div>
+            <div class="card-body">
+                <form asp-action="Edit" method="post">
+                    <input asp-for="UserId" type="hidden" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="Name" class="form-label">
+                                    <i class="fas fa-user me-1"></i>Full Name *
+                                </label>
+                                <input asp-for="Name" class="form-control" placeholder="Enter full name" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="Email" class="form-label">
+                                    <i class="fas fa-envelope me-1"></i>Email Address *
+                                </label>
+                                <input asp-for="Email" type="email" class="form-control" placeholder="Enter email address" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="Password" class="form-label">
+                                    <i class="fas fa-lock me-1"></i>New Password
+                                </label>
+                                <input asp-for="Password" type="password" class="form-control" placeholder="Enter new password (leave blank to keep current)" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                                <div class="form-text">Leave blank to keep current password. If changing, must be at least 6 characters long.</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="RoleId" class="form-label">
+                                    <i class="fas fa-user-tag me-1"></i>Role *
+                                </label>
+                                <select asp-for="RoleId" class="form-select">
+                                    <option value="">Select a role</option>
+                                    @foreach (var role in Model.Roles)
+                                    {
+                                        <option value="@role.RoleId">@role.RoleName</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="RoleId" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="AccountStatus" class="form-label">
+                                    <i class="fas fa-toggle-on me-1"></i>Account Status *
+                                </label>
+                                <select asp-for="AccountStatus" class="form-select">
+                                    <option value="Active">Active</option>
+                                    <option value="Inactive">Inactive</option>
+                                    <option value="Suspended">Suspended</option>
+                                </select>
+                                <span asp-validation-for="AccountStatus" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <div class="alert alert-warning">
+                                    <i class="fas fa-exclamation-triangle me-1"></i>
+                                    <strong>Warning:</strong> Changing the account status will affect the user's ability to log in.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="d-flex justify-content-end gap-2">
+                                <a asp-action="Index" class="btn btn-secondary">
+                                    <i class="fas fa-times me-1"></i>Cancel
+                                </a>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save me-1"></i>Update User
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    <script>
+        // Password strength indicator (only show if password field has value)
+        document.getElementById('Password').addEventListener('input', function() {
+            const password = this.value;
+            if (password.length > 0) {
+                const strength = getPasswordStrength(password);
+                updatePasswordStrengthIndicator(strength);
+            } else {
+                hidePasswordStrengthIndicator();
+            }
+        });
+
+        function getPasswordStrength(password) {
+            let strength = 0;
+            if (password.length >= 6) strength++;
+            if (password.match(/[a-z]/)) strength++;
+            if (password.match(/[A-Z]/)) strength++;
+            if (password.match(/[0-9]/)) strength++;
+            if (password.match(/[^a-zA-Z0-9]/)) strength++;
+            return strength;
+        }
+
+        function updatePasswordStrengthIndicator(strength) {
+            let indicator = document.getElementById('passwordStrength');
+            if (!indicator) {
+                indicator = createPasswordStrengthIndicator();
+            }
+            const strengthText = ['Very Weak', 'Weak', 'Fair', 'Good', 'Strong'];
+            const strengthColors = ['danger', 'warning', 'info', 'success', 'success'];
+            
+            indicator.textContent = strengthText[strength] || '';
+            indicator.className = `badge bg-${strengthColors[strength] || 'secondary'}`;
+            indicator.style.display = 'inline-block';
+        }
+
+        function hidePasswordStrengthIndicator() {
+            const indicator = document.getElementById('passwordStrength');
+            if (indicator) {
+                indicator.style.display = 'none';
+            }
+        }
+
+        function createPasswordStrengthIndicator() {
+            const indicator = document.createElement('div');
+            indicator.id = 'passwordStrength';
+            indicator.className = 'badge bg-secondary mt-1';
+            indicator.style.display = 'none';
+            document.querySelector('input[name="Password"]').parentNode.appendChild(indicator);
+            return indicator;
+        }
+    </script>
+}

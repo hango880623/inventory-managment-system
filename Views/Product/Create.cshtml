@@ -1,0 +1,74 @@
+@model Product
+@{
+    ViewData["Title"] = "Add Product";
+    Layout = "_Layout";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Add New Product</h5>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="ProductName" class="form-label"></label>
+                        <input asp-for="ProductName" class="form-control" />
+                        <span asp-validation-for="ProductName" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Description" class="form-label"></label>
+                        <textarea asp-for="Description" class="form-control"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="PurchasePrice" class="form-label"></label>
+                            <input asp-for="PurchasePrice" class="form-control" />
+                            <span asp-validation-for="PurchasePrice" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="SalesPrice" class="form-label"></label>
+                            <input asp-for="SalesPrice" class="form-control" />
+                            <span asp-validation-for="SalesPrice" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="InStock" class="form-label"></label>
+                            <input asp-for="InStock" class="form-control" />
+                            <span asp-validation-for="InStock" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="ValueHand" class="form-label"></label>
+                            <input asp-for="ValueHand" class="form-control" />
+                            <span asp-validation-for="ValueHand" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Photo</label>
+                        <input type="file" name="photo" class="form-control" accept="image/*" />
+                    </div>
+
+                    <div class="d-flex justify-content-end">
+                        <a asp-action="Index" class="btn btn-outline-secondary me-2">Cancel</a>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

@@ -1,0 +1,40 @@
+# Build outputs
+bin/
+obj/
+
+# User-specific
+*.user
+*.suo
+.vs/
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+
+# Secrets and env
+.env
+appsettings.Development.json
+appsettings.json
+appsettings.*.local.json
+
+# EF Core
+Migrations/**/__EFMigrationsHistory
+
+# LibMan (restore on build)
+wwwroot/lib/
+
+# Static web assets cache
+**/obj/**/staticwebassets/**
+
+# Rider/JetBrains
+*.DotSettings.user
+
+# Env
+.env
+
+

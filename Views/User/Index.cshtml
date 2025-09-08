@@ -1,0 +1,173 @@
+@model UserListViewModel
+@{
+    ViewData["Title"] = "User Management";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2><i class="fas fa-users me-2"></i>User Management</h2>
+            <a asp-action="Create" class="btn btn-primary">
+                <i class="fas fa-user-plus me-1"></i>Add New User
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">User List</h6>
+            </div>
+            <div class="card-body">
+                @if (Model.Users.Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var user in Model.Users)
+                                {
+                                    <tr>
+                                        <td>@user.UserId</td>
+                                        <td>@user.Name</td>
+                                        <td>@user.Email</td>
+                                        <td>
+                                            <span class="badge bg-info">@user.Role?.RoleName</span>
+                                        </td>
+                                        <td>
+                                            @if (user.AccountStatus == "Active")
+                                            {
+                                                <span class="badge bg-success">@user.AccountStatus</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-danger">@user.AccountStatus</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <a asp-action="Edit" asp-route-id="@user.UserId" class="btn btn-sm btn-warning">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete(@user.UserId, '@user.Name')">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    @if (Model.TotalPages > 1)
+                    {
+                        <nav aria-label="User pagination">
+                            <ul class="pagination justify-content-center">
+                                @if (Model.CurrentPage > 1)
+                                {
+                                    <li class="page-item">
+                                        <a class="page-link" asp-action="Index" asp-route-page="@(Model.CurrentPage - 1)" asp-route-pageSize="@Model.PageSize">
+                                            <i class="fas fa-chevron-left"></i> Previous
+                                        </a>
+                                    </li>
+                                }
+
+                                @for (int i = Math.Max(1, Model.CurrentPage - 2); i <= Math.Min(Model.TotalPages, Model.CurrentPage + 2); i++)
+                                {
+                                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                                        <a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-pageSize="@Model.PageSize">@i</a>
+                                    </li>
+                                }
+
+                                @if (Model.CurrentPage < Model.TotalPages)
+                                {
+                                    <li class="page-item">
+                                        <a class="page-link" asp-action="Index" asp-route-page="@(Model.CurrentPage + 1)" asp-route-pageSize="@Model.PageSize">
+                                            Next <i class="fas fa-chevron-right"></i>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </nav>
+                    }
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="text-muted">
+                                Showing @((Model.CurrentPage - 1) * Model.PageSize + 1) to 
+                                @Math.Min(Model.CurrentPage * Model.PageSize, Model.TotalCount) of 
+                                @Model.TotalCount entries
+                            </p>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <div class="btn-group" role="group">
+                                <a asp-action="Index" asp-route-page="1" asp-route-pageSize="10" 
+                                   class="btn btn-sm @(Model.PageSize == 10 ? "btn-primary" : "btn-outline-primary")">10</a>
+                                <a asp-action="Index" asp-route-page="1" asp-route-pageSize="25" 
+                                   class="btn btn-sm @(Model.PageSize == 25 ? "btn-primary" : "btn-outline-primary")">25</a>
+                                <a asp-action="Index" asp-route-page="1" asp-route-pageSize="50" 
+                                   class="btn btn-sm @(Model.PageSize == 50 ? "btn-primary" : "btn-outline-primary")">50</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center py-5">
+                        <i class="fas fa-users fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">No users found</h5>
+                        <p class="text-muted">Start by adding your first user.</p>
+                        <a asp-action="Create" class="btn btn-primary">
+                            <i class="fas fa-user-plus me-1"></i>Add New User
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete user <strong id="userName"></strong>?</p>
+                <p class="text-danger"><small>This action cannot be undone.</small></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form id="deleteForm" method="post" style="display: inline;">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function confirmDelete(userId, userName) {
+            document.getElementById('userName').textContent = userName;
+            document.getElementById('deleteForm').action = '@Url.Action("Delete")/' + userId;
+            new bootstrap.Modal(document.getElementById('deleteModal')).show();
+        }
+    </script>
+}

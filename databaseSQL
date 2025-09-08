@@ -1,0 +1,100 @@
+sql
+CopyEdit
+-- Create Roles table
+CREATE TABLE tblRoles (
+    roleid INT IDENTITY PRIMARY KEY,
+    role NVARCHAR(50) NOT NULL,
+    description NVARCHAR(255)
+);
+
+-- Create Users table
+CREATE TABLE tblUsers (
+    userid INT IDENTITY PRIMARY KEY,
+    email NVARCHAR(100) NOT NULL UNIQUE,
+    password NVARCHAR(255) NOT NULL,
+    roleid INT NOT NULL FOREIGN KEY REFERENCES tblRoles(roleid),
+    name NVARCHAR(100),
+    accountstatus NVARCHAR(50),
+    photo VARBINARY(MAX),
+    resettoken NVARCHAR(255)
+);
+
+-- Create Products table
+CREATE TABLE tblProducts (
+    productid INT IDENTITY PRIMARY KEY,
+    productname NVARCHAR(100) NOT NULL,
+    description NVARCHAR(255),
+    purchaseprice DECIMAL(18,2),
+    salesprice DECIMAL(18,2),
+    instock INT,
+    valuehand DECIMAL(18,2),
+    photo VARBINARY(MAX)
+);
+
+-- Create Customers table
+CREATE TABLE tblCustomers (
+    customerid INT IDENTITY PRIMARY KEY,
+    customername NVARCHAR(100) NOT NULL,
+    address NVARCHAR(255),
+    city NVARCHAR(50),
+    province NVARCHAR(50),
+    zipcode NVARCHAR(20),
+    phone NVARCHAR(20),
+    email NVARCHAR(100)
+);
+
+-- Create Suppliers table
+CREATE TABLE tblSuppliers (
+    supplierid INT IDENTITY PRIMARY KEY,
+    suppliername NVARCHAR(100) NOT NULL,
+    address NVARCHAR(255),
+    city NVARCHAR(50),
+    province NVARCHAR(50),
+    zipcode NVARCHAR(20),
+    phone NVARCHAR(20),
+    email NVARCHAR(100)
+);
+
+-- Create Purchase Orders table
+CREATE TABLE tblPurchaseOrders (
+    purchaseorderid INT IDENTITY PRIMARY KEY,
+    purchaseorderno NVARCHAR(50) NOT NULL,
+    supplierid INT NOT NULL FOREIGN KEY REFERENCES tblSuppliers(supplierid),
+    purchasedate DATE,
+    subtotal DECIMAL(18,2),
+    tax DECIMAL(18,2),
+    total DECIMAL(18,2)
+);
+
+-- Create Purchase Order Details table
+CREATE TABLE tblPurchaseOrderDetails (
+    purchaseorderdetailsid INT IDENTITY PRIMARY KEY,
+    purchaseorderid INT NOT NULL FOREIGN KEY REFERENCES tblPurchaseOrders(purchaseorderid),
+    productid INT NOT NULL FOREIGN KEY REFERENCES tblProducts(productid),
+    description NVARCHAR(255),
+    qty INT,
+    salesprice DECIMAL(18,2),
+    total DECIMAL(18,2)
+);
+
+-- Create Sales Orders table
+CREATE TABLE tblSalesOrders (
+    salesorderid INT IDENTITY PRIMARY KEY,
+    salesorderno NVARCHAR(50) NOT NULL,
+    customerid INT NOT NULL FOREIGN KEY REFERENCES tblCustomers(customerid),
+    orderdate DATE,
+    subtotal DECIMAL(18,2),
+    tax DECIMAL(18,2),
+    total DECIMAL(18,2)
+);
+
+-- Create Sales Order Details table
+CREATE TABLE tblSalesOrderDetails (
+    salesorderdetailsid INT IDENTITY PRIMARY KEY,
+    salesorderid INT NOT NULL FOREIGN KEY REFERENCES tblSalesOrders(salesorderid),
+    productid INT NOT NULL FOREIGN KEY REFERENCES tblProducts(productid),
+    description NVARCHAR(255),
+    qty INT,
+    salesprice DECIMAL(18,2),
+    total DECIMAL(18,2)
+);
